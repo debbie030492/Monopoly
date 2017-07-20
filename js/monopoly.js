@@ -1,6 +1,6 @@
 var Monopoly = {};
 Monopoly.allowRoll = true;
-Monopoly.moneyAtStart = 10;
+Monopoly.moneyAtStart = 150;
 Monopoly.doubleCounter = 0;
 
 Monopoly.init = function(){
@@ -50,18 +50,18 @@ Monopoly.updatePlayersMoney = function(player,amount){
         var popup = $("#broke");
         popup.find("button").unbind("click").bind("click",function(){
             Monopoly.handleAction(player,"broke");
-            Monopoly.setNextPlayerTurn();
-             popup.hide();
-             var playerId = player.attr("id");
+            var playerId = player.attr("id");
              var playerDiv = $("div." + playerId);
              playerDiv.removeClass(playerId);
              playerDiv.addClass("available");
+             popup.hide();
     });
     }else{    
     player.attr("data-money",playersMoney);
     player.attr("title",player.attr("id") + ": $" + playersMoney);
     Monopoly.playSound("chaching");
     }
+    Monopoly.closePopup();
 };
 //Randomly generating dices
 Monopoly.rollDice = function(){
@@ -341,7 +341,7 @@ Monopoly.getNextCell = function(cell){
 //Adding money to the player each time he goes through the Go tole
 Monopoly.handlePassedGo = function(){
     var player = Monopoly.getCurrentPlayer();
-    Monopoly.updatePlayersMoney(player,+30);
+    Monopoly.updatePlayersMoney(player,-30);
 };
 
 //Checking that the number of players is between 1 and 4 at the beginning
